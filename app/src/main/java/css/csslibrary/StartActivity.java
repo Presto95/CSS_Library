@@ -16,6 +16,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.microsoft.azure.mobile.MobileCenter;
+import com.microsoft.azure.mobile.analytics.Analytics;
+import com.microsoft.azure.mobile.crashes.Crashes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +39,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        MobileCenter.start(getApplication(), "bf80e11b-7593-4e19-8f36-44eb3a4cea25",
+                Analytics.class, Crashes.class);
         findViewById(R.id.btn_login).setOnClickListener(this);
         et_id=(EditText)findViewById(R.id.edit_id);
         et_pw=(EditText)findViewById(R.id.edit_pw);
