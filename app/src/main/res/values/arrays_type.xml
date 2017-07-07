@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_array">
+        <item>"선택"</item>
+        <item>"C/C++/C#"</item>
+        <item>"Java"</item>
+        <item>"Python"</item>
+        <item>"HTML/CSS/JavaScript/PHP</item>
+        <item>"운영체제"</item>
+        <item>"알고리즘/자료구조"</item>
+        <item>"네트워크"</item>
+    </string-array>
+</resources>

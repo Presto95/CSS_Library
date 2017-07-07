@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/text_current"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="현재 비밀번호"
+        android:textSize="15sp"
+        android:layout_alignBaseline="@+id/edit_current"
+        android:layout_alignBottom="@+id/edit_current"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:id="@+id/edit_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_current"
+        android:layout_marginTop="80dp"
+        android:inputType="textPassword"/>
+    <TextView
+        android:id="@+id/text_change"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="새 비밀번호"
+        android:textSize="15sp"
+        android:layout_alignBaseline="@+id/edit_change"
+        android:layout_alignBottom="@+id/edit_change"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:id="@+id/edit_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_current"
+        android:layout_toRightOf="@id/text_change"
+        android:inputType="textPassword"/>
+    <TextView
+        android:id="@+id/text_change_check"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="새 비밀번호 확인"
+        android:textSize="15sp"
+        android:layout_alignBaseline="@+id/edit_change_check"
+        android:layout_alignBottom="@+id/edit_change_check"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:id="@+id/edit_change_check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_change_check"
+        android:layout_below="@id/edit_change"
+        android:inputType="textPassword"/>
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:textSize="20sp"
+        android:layout_below="@+id/edit_change_check"
+        android:layout_centerHorizontal="true"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="10"
+        android:background="@drawable/buttonshape"/>
+
+    <TextView
+        android:id="@+id/text_unite"
+        android:textSize="15dp"
+        android:textAlignment="viewEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:text=""
+        android:visibility="invisible"
+        android:layout_alignBaseline="@+id/btn_submit"
+        android:layout_alignBottom="@+id/btn_submit"
+        android:layout_toEndOf="@+id/btn_submit" />
+
+</RelativeLayout>
