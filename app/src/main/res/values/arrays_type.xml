@@ -2,12 +2,28 @@
 <resources>
     <string-array name="type_array">
         <item>"선택"</item>
-        <item>"C/C++/C#"</item>
-        <item>"Java"</item>
-        <item>"Python"</item>
-        <item>"HTML/CSS/JavaScript/PHP</item>
-        <item>"운영체제"</item>
+        <item>"언어"</item>
+        <item>"언어 심화"</item>
+        <item>"웹"</item>
         <item>"알고리즘/자료구조"</item>
+        <item>"운영체제/컴파일러"</item>
+        <item>"개발"</item>
         <item>"네트워크"</item>
+        <item>"데이터베이스</item>
+        <item>"서버"</item>
+        <item>"시스템 프로그래밍"</item>
+        <item>"기타"</item>
+        <item>"보안(취약점)"</item>
+        <item>"보안(포렌식)"</item>
+        <item>"보안(해킹)"</item>
+        <item>"보안(네트워크)"</item>
+        <item>"보안(데이터베이스)"</item>
+        <item>"보안(리눅스)"</item>
+        <item>"보안(리버싱)"</item>
+        <item>"보안(암호)"</item>
+        <item>"보안(어플리케이션)"</item>
+        <item>"보안(웹)"</item>
+        <item>"보안(기타)"</item>
+
     </string-array>
 </resources>

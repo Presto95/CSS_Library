@@ -11,9 +11,13 @@ public class Book {
     private String type;
     private String title;
     private String author;
-    private int amount;
+    private String amount;
 
-    public Book(int id, String type, String title, String author, int amount) {
+    public Book(){
+
+    }
+
+    public Book(int id, String type, String title, String author, String amount) {
         this.id = id;
         this.type = type;
         this.title = title;
@@ -54,11 +58,11 @@ public class Book {
         this.author = author;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 }

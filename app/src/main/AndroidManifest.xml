@@ -27,6 +27,8 @@
         <activity android:name=".CheckInIngActivity" />
         <activity android:name=".ChangeActivity" />
         <activity android:name=".MainListActivity" />
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".BugReportActivity" />
     </application>
 
 </manifest>

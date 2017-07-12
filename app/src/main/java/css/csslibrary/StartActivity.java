@@ -54,9 +54,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             et_id.setText(id);
         if(isChecked==true)
             checkBox.setChecked(true);
-        else
+        else {
             checkBox.setChecked(false);
-
+            et_id.setText(null);
+        }
         et_pw.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -80,7 +81,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://192.168.0.6:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                //프론티어
+                //URL url = new URL("http://192.168.0.6:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                URL url = new URL("http://192.168.226.1:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.
@@ -127,7 +130,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             input_id=et_id.getText().toString();
             input_pw=et_pw.getText().toString();
             String result=task.execute(input_id,input_pw).get();
-            if(result.equals("true")){
+            /*if(result.equals("true")){
                 Toast.makeText(StartActivity.this,"로그인!",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this,MainListActivity.class));
                 finish();
@@ -141,7 +144,23 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(StartActivity.this,"??????",Toast.LENGTH_SHORT).show();
                 input_id="";
                 input_pw="";
+            }*/
+            if(!result.equals(null)){
+                SharedPreferences sp=getSharedPreferences("LOGIN",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sp.edit();
+                editor.putString("name",result);
+                editor.commit();
+
+                Toast.makeText(StartActivity.this,"로그인!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,MainListActivity.class));
+                finish();
             }
+            else{
+                Toast.makeText(StartActivity.this,"로그인 실패",Toast.LENGTH_SHORT).show();
+                input_id="";
+                input_pw="";
+            }
+
         }catch(Exception e){}
 
 

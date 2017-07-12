@@ -51,9 +51,15 @@ public class Adapter extends BaseAdapter{
         if(convertView==null)
             convertView=inflater.inflate(this.layoutId,null);
         TextView type=(TextView)convertView.findViewById(R.id.text_type);
-        TextView title=(TextView)convertView.findViewById(R.id.text_title);
+        final TextView title=(TextView)convertView.findViewById(R.id.text_title);
         TextView author=(TextView)convertView.findViewById(R.id.text_author);
         TextView amount=(TextView)convertView.findViewById(R.id.text_isCheckin);
+        title.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                title.setSelected(true);
+            }
+        });
 
         Book book=this.items.get(position);
         type.setText(book.getType());

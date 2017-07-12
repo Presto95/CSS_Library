@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class MainListActivity extends AppCompatActivity implements AdapterView.O
 
         listView=(ListView)findViewById(R.id.list_view);
 
-        List<String> items=findList();
+        List<String> items=setList();
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
 
 
@@ -42,13 +43,17 @@ public class MainListActivity extends AppCompatActivity implements AdapterView.O
         listView.setOnItemClickListener(this);
 
     }
-    private List<String> findList(){
+    private List<String> setList(){
         List<String> list=new ArrayList<>();
         list.add("대출");
         list.add("반납");
         list.add("대출중");
-        list.add("계정 정보 변경");
-        list.add("Thanks To");
+        list.add("비밀번호 변경");
+        list.add("도움말");
+        list.add("버그 리포트");
+        list.add("CSS 싸이월드 클럽 접속");
+        list.add("만든 사람들");
+        list.add("종료");
         return list;
     }
 
@@ -69,12 +74,41 @@ public class MainListActivity extends AppCompatActivity implements AdapterView.O
                 startActivity(new Intent(this,ChangeActivity.class));
                 break;
             case 4:
+                startActivity(new Intent(this,HelpActivity.class));
+                break;
+            case 5:
+                startActivity(new Intent(this,BugReportActivity.class));
+                break;
+            case 6:
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://club.cyworld.com/ClubV1/Home.cy/53489439"));
+                startActivity(intent);
+                break;
+            case 7:
                 AlertDialog.Builder dialog=new AlertDialog.Builder(this);
-                dialog.setTitle("Thanks To");
-                dialog.setMessage("Dev : 9期 LEE Han-Gyeol"+"\n"+"asdf"+"\n"+"asdf"+"\n"+"adf"+"\n"+"asdf"+"\n"+"asdf"+"\n"+"adf");
+                dialog.setTitle("CSS Library");
+                dialog.setMessage("Developer\n9th LEE Han Gyoel\n\nThanks To\n4th KIM Jong Hoon");
                 dialog.setPositiveButton("확인",null);
                 dialog.create();
                 dialog.show();
+                break;
+            case 8:
+                AlertDialog.Builder dialog2=new AlertDialog.Builder(this);
+                dialog2.setTitle("안내");
+                dialog2.setMessage("어플리케이션을 종료합니다.");
+                dialog2.setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                dialog2.setNegativeButton("취소",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+
+                    }
+                });
+                dialog2.create();
+                dialog2.show();
                 break;
         }
     }

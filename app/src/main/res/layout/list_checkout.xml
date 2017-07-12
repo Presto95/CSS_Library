@@ -30,7 +30,8 @@
         android:layout_below="@+id/text_type"
         android:text="TITLE"
         android:textSize="30dp"
-        android:ellipsize="end"/>
+        android:singleLine="true"
+        android:ellipsize="marquee"/>
 
     <TextView
         android:id="@+id/text_date"
