@@ -45,9 +45,6 @@ public class MainListActivity extends AppCompatActivity implements AdapterView.O
     }
     private List<String> setList(){
         List<String> list=new ArrayList<>();
-        list.add("대출");
-        list.add("반납");
-        list.add("대출중");
         list.add("비밀번호 변경");
         list.add("도움말");
         list.add("버그 리포트");
@@ -62,28 +59,19 @@ public class MainListActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch(position){
             case 0:
-                startActivity(new Intent(this,CheckInActivity.class));
-                break;
-            case 1:
-                startActivity(new Intent(this,CheckOutActivity.class));
-                break;
-            case 2:
-                startActivity(new Intent(this,CheckInIngActivity.class));
-                break;
-            case 3:
                 startActivity(new Intent(this,ChangeActivity.class));
                 break;
-            case 4:
+            case 1:
                 startActivity(new Intent(this,HelpActivity.class));
                 break;
-            case 5:
+            case 2:
                 startActivity(new Intent(this,BugReportActivity.class));
                 break;
-            case 6:
+            case 3:
                 Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://club.cyworld.com/ClubV1/Home.cy/53489439"));
                 startActivity(intent);
                 break;
-            case 7:
+            case 4:
                 AlertDialog.Builder dialog=new AlertDialog.Builder(this);
                 dialog.setTitle("CSS Library");
                 dialog.setMessage("Developer\n9th LEE Han Gyoel\n\nThanks To\n4th KIM Jong Hoon");
@@ -91,7 +79,7 @@ public class MainListActivity extends AppCompatActivity implements AdapterView.O
                 dialog.create();
                 dialog.show();
                 break;
-            case 8:
+            case 5:
                 AlertDialog.Builder dialog2=new AlertDialog.Builder(this);
                 dialog2.setTitle("안내");
                 dialog2.setMessage("어플리케이션을 종료합니다.");

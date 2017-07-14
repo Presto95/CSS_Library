@@ -30,7 +30,7 @@
                 android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="도서관리"
+                android:text="도서관"
                 android:textSize="50dp"
                 android:textAlignment="center"/>
             <TextView
@@ -110,6 +110,7 @@
         </LinearLayout>
 
     </ScrollView>
+
 
 
 

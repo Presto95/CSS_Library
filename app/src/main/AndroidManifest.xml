@@ -29,6 +29,9 @@
         <activity android:name=".MainListActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".BugReportActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="크스스 도서관 베타" />
     </application>
 
 </manifest>

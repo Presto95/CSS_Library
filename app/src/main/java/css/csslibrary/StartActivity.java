@@ -46,6 +46,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         et_pw=(EditText)findViewById(R.id.edit_pw);
         checkBox=(CheckBox)findViewById(R.id.checkBox);
 
+
         SharedPreferences sp=getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         String id=sp.getString("id",null);
         Boolean isChecked=sp.getBoolean("isChecked",false);
@@ -82,8 +83,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             try {
                 String str;
                 //프론티어
-                //URL url = new URL("http://192.168.0.6:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
-                URL url = new URL("http://192.168.226.1:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                URL url = new URL("http://192.168.0.6:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                //URL url = new URL("http://192.168.226.1:8080/CSSLibrary/login.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.
@@ -152,7 +153,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 editor.commit();
 
                 Toast.makeText(StartActivity.this,"로그인!",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this,MainListActivity.class));
+                startActivity(new Intent(this,MainActivity.class));
                 finish();
             }
             else{
@@ -198,8 +199,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_login:
                 logIn();
                 break;
-
-
         }
     }
 
