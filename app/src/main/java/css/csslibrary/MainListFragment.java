@@ -46,8 +46,9 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
     private List<String> setList(){
         List<String> list=new ArrayList<>();
         list.add("비밀번호 변경");
-        list.add("도움말");
+        //list.add("도움말");
         list.add("버그 리포트");
+        list.add("CSS 스케쥴러");
         list.add("CSS 싸이월드 클럽 접속");
         list.add("만든 사람들");
         list.add("종료");
@@ -67,7 +68,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 changeTransaction.addToBackStack(null);
                 changeTransaction.commit();
                 break;
-            case 1:
+            /*case 1:
                 //startActivity(new Intent(getActivity(),HelpActivity.class));
                 HelpFragment helpFragment = new HelpFragment();
                 FragmentTransaction helpTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -75,8 +76,8 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 helpTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 helpTransaction.addToBackStack(null);
                 helpTransaction.commit();
-                break;
-            case 2:
+                break;*/
+            case 1:
                 //startActivity(new Intent(getActivity(),BugReportActivity.class));
                 BugReportFragment bugReportFragment = new BugReportFragment();
                 FragmentTransaction bugreportTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -84,6 +85,14 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 bugreportTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 bugreportTransaction.addToBackStack(null);
                 bugreportTransaction.commit();
+                break;
+            case 2:
+                ScheduleFragment scheduleFragment=new ScheduleFragment();
+                FragmentTransaction scheduleTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+                scheduleTransaction.replace(R.id.content,scheduleFragment);
+                scheduleTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                scheduleTransaction.addToBackStack(null);
+                scheduleTransaction.commit();
                 break;
             case 3:
                 Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://club.cyworld.com/ClubV1/Home.cy/53489439"));

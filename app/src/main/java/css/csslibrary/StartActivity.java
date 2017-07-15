@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         MobileCenter.start(getApplication(), "bf80e11b-7593-4e19-8f36-44eb3a4cea25",
                 Analytics.class, Crashes.class);
         findViewById(R.id.btn_login).setOnClickListener(this);
+        //findViewById(R.id.btn_develop).setOnClickListener(this);
+
         et_id=(EditText)findViewById(R.id.edit_id);
         et_pw=(EditText)findViewById(R.id.edit_pw);
         checkBox=(CheckBox)findViewById(R.id.checkBox);
@@ -199,6 +202,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_login:
                 logIn();
                 break;
+            /*case R.id.btn_develop:
+                startActivity(new Intent(this,ScheduleActivity.class));
+                break;*/
         }
     }
 
