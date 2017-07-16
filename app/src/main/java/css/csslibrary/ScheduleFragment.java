@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class ScheduleFragment extends Fragment {
 
     private TextView textDate;
     private TextView textContent;
+    private TextView textExtra;
     private CalendarView calendarView;
     private CustomTask customTask;
 
@@ -38,26 +40,30 @@ public class ScheduleFragment extends Fragment {
         super.onStart();
         calendarView=(CalendarView)getView().findViewById(R.id.calendarView);
         textDate=(TextView)getView().findViewById(R.id.text_date);
-        textContent=(TextView)getView().findViewById(R.id.text_schedule);
+        textContent=(TextView)getView().findViewById(R.id.text_content);
+        textContent.setMovementMethod(ScrollingMovementMethod.getInstance());
         textContent.setText("날짜를 선택하세요.");
 
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                textContent.setText("");
                 customTask=new CustomTask();
                 try {
                     String result=customTask.execute(Integer.toString(year),Integer.toString(month+1),Integer.toString(dayOfMonth)).get();
-                    String[] array=result.split(":");
                     textDate.setText(year+"년 "+(month+1)+"월 "+dayOfMonth+"일\n");
                     if(!result.equals("")){
-                        for(int i=0;i<array.length;++i){
-                            textContent.setText(array[i]+"\n");
+                        String[] array1=result.split(":");
+                        for(int i=0;i<array1.length;++i){
+                            String[] array2=array1[i].split(";");
+                            textContent.setText(textContent.getText()+array2[0]+"\n"+array2[1]+"\n\n");
                         }
                     }
                     else{
-                        textContent.setText("");
+                        textContent.setText("데이터 없음");
                     }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

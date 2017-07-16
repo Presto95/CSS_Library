@@ -18,22 +18,17 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:paddingTop="20dp"
-        android:textSize="20sp" />
+        android:textAlignment="center"
+        android:textSize="17sp" />
 
     <TextView
-        android:id="@+id/text_schedule"
+        android:id="@+id/text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:ellipsize="marquee"
-        android:textSize="20sp" />
+        android:scrollbars="vertical"
+        android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/text_extra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp"/>
 </LinearLayout>

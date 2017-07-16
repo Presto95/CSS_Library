@@ -1,7 +1,9 @@
 package css.csslibrary;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,12 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
 
     }
     private List<String> setList(){
+        SharedPreferences sp=getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         List<String> list=new ArrayList<>();
+        if(sp.getBoolean("autoLogin",false)==true)
+            list.add("자동 로그인 해제");
+        else
+            list.add("자동 로그인 설정");
         list.add("비밀번호 변경");
         //list.add("도움말");
         list.add("버그 리포트");
@@ -60,6 +68,60 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch(position){
             case 0:
+                final SharedPreferences sp=getActivity().getSharedPreferences("LOGIN",Context.MODE_PRIVATE);
+                AlertDialog.Builder autoLoginDialog=new AlertDialog.Builder(getActivity());
+                autoLoginDialog.setTitle("자동 로그인");
+                if(sp.getBoolean("autoLogin",false)==true){
+                    autoLoginDialog.setMessage("자동 로그인을 해제합니다.");
+                    autoLoginDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor=sp.edit();
+                            editor.putBoolean("autoLogin",false);
+                            editor.commit();
+                            Toast.makeText(getActivity(),"자동 로그인을 해제하였습니다.",Toast.LENGTH_SHORT).show();
+
+                            List<String> items=setList();
+                            adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,items);
+                            listView.setAdapter(adapter);
+
+                        }
+                    });
+                    autoLoginDialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                }
+                else{
+                    autoLoginDialog.setMessage("자동 로그인을 설정합니다.");
+                    autoLoginDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor=sp.edit();
+                            editor.putBoolean("autoLogin",true);
+                            editor.commit();
+                            Toast.makeText(getActivity(),"자동 로그인을 설정하였습니다.",Toast.LENGTH_SHORT).show();
+
+                            List<String> items=setList();
+                            adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,items);
+                            listView.setAdapter(adapter);
+                        }
+                    });
+                    autoLoginDialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                }
+                autoLoginDialog.create();
+                autoLoginDialog.show();
+
+                break;
+
+            case 1:
                 //startActivity(new Intent(getActivity(),ChangeActivity.class));
                 ChangeFragment changeFragment = new ChangeFragment();
                 FragmentTransaction changeTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -77,7 +139,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 helpTransaction.addToBackStack(null);
                 helpTransaction.commit();
                 break;*/
-            case 1:
+            case 2:
                 //startActivity(new Intent(getActivity(),BugReportActivity.class));
                 BugReportFragment bugReportFragment = new BugReportFragment();
                 FragmentTransaction bugreportTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -86,7 +148,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 bugreportTransaction.addToBackStack(null);
                 bugreportTransaction.commit();
                 break;
-            case 2:
+            case 3:
                 ScheduleFragment scheduleFragment=new ScheduleFragment();
                 FragmentTransaction scheduleTransaction=getActivity().getSupportFragmentManager().beginTransaction();
                 scheduleTransaction.replace(R.id.content,scheduleFragment);
@@ -94,11 +156,11 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 scheduleTransaction.addToBackStack(null);
                 scheduleTransaction.commit();
                 break;
-            case 3:
+            case 4:
                 Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://club.cyworld.com/ClubV1/Home.cy/53489439"));
                 startActivity(intent);
                 break;
-            case 4:
+            case 5:
                 AlertDialog.Builder dialog=new AlertDialog.Builder(getActivity());
                 dialog.setTitle("Project [CSS Library]");
                 dialog.setMessage("Developer\n9th LEE Han Gyoel\n\nThanks To\n4th KIM Jong Hoon");
@@ -106,7 +168,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 dialog.create();
                 dialog.show();
                 break;
-            case 5:
+            case 6:
                 AlertDialog.Builder dialog2=new AlertDialog.Builder(getActivity());
                 dialog2.setTitle("안내");
                 dialog2.setMessage("어플리케이션을 종료합니다.");

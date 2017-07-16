@@ -16,11 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity android:name=".CheckInActivity" />
         <activity android:name=".CheckOutActivity" />
@@ -31,8 +31,9 @@
         <activity android:name=".BugReportActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="크스스 도서관 베타" />
-        <activity android:name=".ScheduleActivity"></activity>
+            android:label="크스스 도서관 베타">
+        </activity>
+        <activity android:name=".ScheduleActivity" />
     </application>
 
 </manifest>

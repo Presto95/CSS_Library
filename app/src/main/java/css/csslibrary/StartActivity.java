@@ -40,6 +40,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        SharedPreferences sp=getSharedPreferences("LOGIN",MODE_PRIVATE);
+
+        if(sp.getBoolean("autoLogin",false)==true){
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+
         MobileCenter.start(getApplication(), "bf80e11b-7593-4e19-8f36-44eb3a4cea25",
                 Analytics.class, Crashes.class);
         findViewById(R.id.btn_login).setOnClickListener(this);
@@ -50,7 +58,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         checkBox=(CheckBox)findViewById(R.id.checkBox);
 
 
-        SharedPreferences sp=getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+
         String id=sp.getString("id",null);
         Boolean isChecked=sp.getBoolean("isChecked",false);
 
@@ -149,7 +157,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 input_id="";
                 input_pw="";
             }*/
-            if(!result.equals(null)){
+            if(!result.equals("")){
                 SharedPreferences sp=getSharedPreferences("LOGIN",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putString("name",result);
