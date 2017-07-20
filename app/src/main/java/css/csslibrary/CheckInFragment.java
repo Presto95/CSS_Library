@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,8 +41,9 @@ import css.csslibrary.model.Book;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-public class CheckInFragment extends android.support.v4.app.Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class CheckInFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
     private String browse_type;
+    private String browse_type2;
     private String browse_keyword;
     private ListView listView;
     private Adapter adapter;
@@ -66,55 +69,74 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
     public void onStart() {
         super.onStart();
 
-        Spinner spinner1=(Spinner)getView().findViewById(R.id.spin_type);
-        Spinner spinner2=(Spinner)getView().findViewById(R.id.spin_keyword);
+        final Spinner spinnerType1=(Spinner)getView().findViewById(R.id.spin_type);
+        final Spinner spinnerType2=(Spinner)getView().findViewById(R.id.spin_type2);
+        final Spinner spinnerKeyword1=(Spinner)getView().findViewById(R.id.spin_keyword1);
+        final Spinner spinnerKeyword2=(Spinner)getView().findViewById(R.id.spin_keyword2);
+        spinnerType1.setVisibility(View.VISIBLE);
+        spinnerKeyword1.setVisibility(View.GONE);
+        spinnerType2.setVisibility(View.GONE);
+        spinnerType1.setSelection(0);
+        spinnerKeyword1.setSelection(0);
+        spinnerType2.setSelection(0);
+        spinnerKeyword2.setSelection(0);
         editKeyword=(EditText)getView().findViewById(R.id.edit_keyword);
-
+        editKeyword.setText("");
         listView=(ListView)getView().findViewById(R.id.list_view);
         items=setDefault();
         adapter=new Adapter(getActivity(),R.layout.list_checkin,items);
         textView=(TextView)getView().findViewById(R.id.text_checkin);
-        textView.setText("검색하세요.");
-
         listView.setOnItemClickListener(this);
-        getView().findViewById(R.id.btn_browse).setOnClickListener(this);
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        //분류/제목/저자
+        spinnerType1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerType2.setSelection(0);
                 browse_type=parent.getItemAtPosition(position).toString();
-                if(browse_type.equals("분류")) {
-                    browse_keyword="";
-                    getView().findViewById(R.id.btn_browse).setEnabled(true);
+                if(browse_type.equals("선택")){
+                    editKeyword.setText("");
+                    spinnerType2.setVisibility(View.INVISIBLE);
+                    editKeyword.setVisibility(View.INVISIBLE);
 
-                    getView().findViewById(R.id.edit_keyword).setVisibility(View.INVISIBLE);
-                    getView().findViewById(R.id.spin_keyword).setVisibility(View.VISIBLE);
                 }
-                else if(browse_type.equals("선택")){
-                    getView().findViewById(R.id.btn_browse).setEnabled(false);
-                    getView().findViewById(R.id.edit_keyword).setVisibility(View.INVISIBLE);
-                    getView().findViewById(R.id.spin_keyword).setVisibility(View.INVISIBLE);
+                else if(browse_type.equals("분류")){
+                    editKeyword.setText("");
+                    spinnerType2.setVisibility(View.VISIBLE);
+                    editKeyword.setVisibility(View.INVISIBLE);
                 }
-                else{
-                    getView().findViewById(R.id.edit_keyword).setVisibility(View.VISIBLE);
-                    getView().findViewById(R.id.spin_keyword).setVisibility(View.INVISIBLE);
-                    browse_keyword="";
-                    editKeyword.setText(null);
-                    getView().findViewById(R.id.btn_browse).setEnabled(true);
-                    ((Spinner) getView().findViewById(R.id.spin_keyword)).setSelection(0);
+                else if(browse_type.equals("제목")||browse_type.equals("저자")){
+                    editKeyword.setText("");
+                    editKeyword.setVisibility(View.VISIBLE);
+                    spinnerType2.setVisibility(View.INVISIBLE);
 
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
 
         });
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //보안/비보안
+        spinnerType2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                browse_keyword=parent.getItemAtPosition(position).toString();
+                browse_type2=parent.getItemAtPosition(position).toString();
+                spinnerKeyword1.setSelection(0);
+                spinnerKeyword2.setSelection(0);
+                if(browse_type2.equals("선택")){
+                    spinnerKeyword1.setVisibility(View.INVISIBLE);
+                    spinnerKeyword2.setVisibility(View.INVISIBLE);
+                }
+                else if(browse_type2.equals("보안")){
+                    spinnerKeyword1.setVisibility(View.VISIBLE);
+                    spinnerKeyword2.setVisibility(View.INVISIBLE);
+                }
+                else if(browse_type2.equals("보안 外")){
+                    spinnerKeyword1.setVisibility(View.INVISIBLE);
+                    spinnerKeyword2.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -122,6 +144,37 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
 
             }
         });
+
+        //보안쪽
+        spinnerKeyword1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerKeyword2.setSelection(0);
+                browse_keyword=parent.getItemAtPosition(position).toString();
+                Search();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //비보안쪽
+        spinnerKeyword2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerKeyword1.setSelection(0);
+                browse_keyword=parent.getItemAtPosition(position).toString();
+                Search();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -131,45 +184,29 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
                 return false;
             }
         });
+
+        editKeyword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editKeyword.getText().toString().length()>=1)
+                    Search();
+                else{
+                    items=setDefault();
+                    adapter=new Adapter(getActivity(),R.layout.list_checkin,items);
+                    listView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.btn_browse:
-                Button btn=(Button)getView().findViewById(R.id.btn_browse);
-                imm=(InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(btn.getWindowToken(),0);
-                //여기에 서버 통신 코드
-                textView.setVisibility(View.GONE);
-                try{
-                    task2=new CustomTask2();
-                    if(browse_type.equals("분류")){
-
-                    }
-                    else{
-                        editKeyword=(EditText)getView().findViewById(R.id.edit_keyword);
-                        browse_keyword=editKeyword.getText().toString();
-                    }
-                    //Toast.makeText(this,browse_type+browse_keyword,Toast.LENGTH_SHORT).show();
-
-                    String result=task2.execute(browse_type,browse_keyword).get();
-                    if(result.equals("")){
-                        textView.setText("검색 결과가 없습니다.");
-                        textView.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
-                    }
-                    else{
-                        textView.setVisibility(View.GONE);
-                        listView.setVisibility(View.VISIBLE);
-                        items=setList(result);
-                        adapter=new Adapter(getActivity(),R.layout.list_checkin,items);
-                        listView.setAdapter(adapter);
-                    }
-                }catch(Exception e){}
-                break;
-        }
-    }
 
     private List<Book> setList(String result){
         List<Book> list=new ArrayList<>();
@@ -185,9 +222,8 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
     }
     private List<Book> setDefault(){
         List<Book> list=new ArrayList<>();
-        list.add(new Book(0,"","검색하세요.","",""));
+        list.add(new Book(0,"","","",""));
         return list;
-
     }
     /*
      여기만 해결하면 되는데...
@@ -269,8 +305,7 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://192.168.0.6:8080/CSSLibrary/insert.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
-                //URL url = new URL("http://192.168.226.1:8080/CSSLibrary/insert.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                URL url = new URL("http://220.149.124.129:8080/CSSLibrary/insert.jsp");//보낼 jsp 주소를 ""안에 작성합니다
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.
@@ -309,8 +344,7 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://192.168.0.6:8080/CSSLibrary/checkin.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
-                //URL url = new URL("http://192.168.226.1:8080/CSSLibrary/checkin.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                URL url = new URL("http://220.149.124.129:8080/CSSLibrary/checkin.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.
@@ -349,8 +383,7 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://192.168.0.6:8080/CSSLibrary/update.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
-                //URL url = new URL("http://192.168.226.1:8080/CSSLibrary/update.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                URL url = new URL("http://220.149.124.129:8080/CSSLibrary/update.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.
@@ -381,6 +414,37 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
             }
             //jsp로부터 받은 리턴 값입니다.
             return receiveMsg;
+        }
+    }
+
+    public void Search(){
+        textView.setVisibility(View.GONE);
+        try{
+            task2=new CustomTask2();
+            if(browse_type.equals("분류")){
+
+            }
+            else{
+                editKeyword=(EditText)getView().findViewById(R.id.edit_keyword);
+                browse_keyword=editKeyword.getText().toString();
+            }
+            //Toast.makeText(this,browse_type+browse_keyword,Toast.LENGTH_SHORT).show();
+
+            String result=task2.execute(browse_type,browse_keyword).get();
+            if(result.equals("")){
+                textView.setText("검색 결과가 없습니다.");
+                textView.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+            }
+            else{
+                textView.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+                items=setList(result);
+                adapter=new Adapter(getActivity(),R.layout.list_checkin,items);
+                listView.setAdapter(adapter);
+            }
+        }catch(Exception e){
+
         }
     }
 

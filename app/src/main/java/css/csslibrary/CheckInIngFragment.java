@@ -92,8 +92,7 @@ public class CheckInIngFragment extends Fragment {
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://192.168.0.6:8080/CSSLibrary/checkining.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
-                //URL url = new URL("http://192.168.226.1:8080/CSSLibrary/checkining.jsp");//보낼 jsp 주소를 ""안에 작성합니다.
+                URL url = new URL("http://220.149.124.129:8080/CSSLibrary/checkining.jsp");//보낼 jsp 주소를 ""안에 작성합니다
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.

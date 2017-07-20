@@ -59,6 +59,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
         list.add("CSS 스케쥴러");
         list.add("CSS 싸이월드 클럽 접속");
         list.add("만든 사람들");
+        list.add("버전 정보");
         list.add("종료");
         return list;
     }
@@ -170,22 +171,30 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 break;
             case 6:
                 AlertDialog.Builder dialog2=new AlertDialog.Builder(getActivity());
-                dialog2.setTitle("안내");
-                dialog2.setMessage("어플리케이션을 종료합니다.");
-                dialog2.setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                dialog2.setTitle("버전 정보");
+                dialog2.setMessage("2017.07.21.\n첫 배포");
+                dialog2.setPositiveButton("확인",null);
+                dialog2.create();
+                dialog2.show();
+                break;
+            case 7:
+                AlertDialog.Builder dialog3=new AlertDialog.Builder(getActivity());
+                dialog3.setTitle("안내");
+                dialog3.setMessage("어플리케이션을 종료합니다.");
+                dialog3.setPositiveButton("확인", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getActivity().finish();
                     }
                 });
-                dialog2.setNegativeButton("취소",new DialogInterface.OnClickListener(){
+                dialog3.setNegativeButton("취소",new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
 
                     }
                 });
-                dialog2.create();
-                dialog2.show();
+                dialog3.create();
+                dialog3.show();
                 break;
         }
     }

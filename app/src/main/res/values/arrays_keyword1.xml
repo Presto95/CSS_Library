@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keyword1">
+        <item>"선택"</item>
+        <item>"보안(취약점)"</item>
+        <item>"보안(포렌식)"</item>
+        <item>"보안(해킹)"</item>
+        <item>"보안(네트워크)"</item>
+        <item>"보안(데이터베이스)"</item>
+        <item>"보안(리눅스)"</item>
+        <item>"보안(리버싱)"</item>
+        <item>"보안(암호)"</item>
+        <item>"보안(어플리케이션)"</item>
+        <item>"보안(웹)"</item>
+        <item>"보안(기타)"</item>
+
+    </string-array>
+</resources>

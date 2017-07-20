@@ -8,13 +8,14 @@
 
     <Spinner
         android:id="@+id/spin_type"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:entries="@array/type"
+        android:entries="@array/type1"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/linearLayout" />
+    <!--
     <Button
         android:id="@+id/btn_browse"
         android:layout_width="80dp"
@@ -30,26 +31,44 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="10"/>
+        -->
+    <Spinner
+        android:id="@+id/spin_type2"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_toRightOf="@id/spin_type"
+        android:visibility="invisible"
+        android:entries="@array/type2">
+
+
+    </Spinner>
     <EditText
         android:id="@+id/edit_keyword"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="검색 키워드를 입력하세요"
+        android:hint="키워드를 입력하세요"
         android:layout_alignParentTop="true"
         android:visibility="invisible"
         android:singleLine="true"
-        android:layout_toRightOf="@id/spin_type"
-        android:layout_toLeftOf="@id/btn_browse"/>
+        android:layout_toRightOf="@id/spin_type" />
     <Spinner
-        android:id="@+id/spin_keyword"
-        android:layout_width="280dp"
+        android:id="@+id/spin_keyword1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:layout_toLeftOf="@id/btn_browse"
-        android:layout_toRightOf="@id/spin_type"
+        android:layout_toRightOf="@id/spin_type2"
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentTop="true"
-        android:entries="@array/type_array"/>
+        android:entries="@array/keyword1"/>
+    <Spinner
+        android:id="@+id/spin_keyword2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="invisible"
+        android:layout_toRightOf="@id/spin_type2"
+        android:entries="@array/keyword2">
+
+    </Spinner>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

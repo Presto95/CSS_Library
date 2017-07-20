@@ -11,17 +11,23 @@ import android.support.design.widget.BottomNavigationView;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private CheckInFragment checkInFragment;
     private CheckOutFragment checkOutFragment;
@@ -101,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.content,checkInFragment).commit();
 
 
+
+
     }
 
     /*@Override
@@ -162,6 +170,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
 }

@@ -11,8 +11,8 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="크스스 도서관 베타"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="크스스 도서관"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StartActivity">
@@ -22,7 +22,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".CheckInActivity" />
         <activity android:name=".CheckOutActivity" />
         <activity android:name=".CheckInIngActivity" />
         <activity android:name=".ChangeActivity" />
@@ -31,7 +30,7 @@
         <activity android:name=".BugReportActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="크스스 도서관 베타">
+            android:label="크스스 도서관">
         </activity>
         <activity android:name=".ScheduleActivity" />
     </application>

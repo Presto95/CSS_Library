@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="type1">
+    <item>"선택"</item>
+    <item>"분류"</item>
+    <item>"제목"</item>
+    <item>"저자"</item>
+</string-array>
+</resources>
