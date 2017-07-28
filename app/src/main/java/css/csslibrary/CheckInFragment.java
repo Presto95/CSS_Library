@@ -301,6 +301,7 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
     }*/
     class CustomTask1 extends AsyncTask<String, Void, String> { //대출
         String sendMsg, receiveMsg;
+        boolean isHttp=false;
         @Override
         protected String doInBackground(String... strings) {
             try {
@@ -316,6 +317,7 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
                 osw.flush();
                 //jsp와 통신이 정상적으로 되었을 때 할 코드들입니다.
                 if(conn.getResponseCode() == conn.HTTP_OK) {
+                    isHttp=true;
                     InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
                     BufferedReader reader = new BufferedReader(tmp);
                     StringBuffer buffer = new StringBuffer();
@@ -336,6 +338,22 @@ public class CheckInFragment extends android.support.v4.app.Fragment implements 
             }
             //jsp로부터 받은 리턴 값입니다.
             return receiveMsg;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            if(isHttp==false){
+                AlertDialog.Builder alert=new AlertDialog.Builder(getActivity());
+                alert.setTitle("안내");
+                alert.setMessage("서버와의 연결이 끊어졌습니다.");
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                    }
+                });
+                alert.create();
+                alert.show();
+            }
         }
     }
     class CustomTask2 extends AsyncTask<String, Void, String> { //검색

@@ -34,7 +34,7 @@
         -->
     <Spinner
         android:id="@+id/spin_type2"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_toRightOf="@id/spin_type"
         android:visibility="invisible"

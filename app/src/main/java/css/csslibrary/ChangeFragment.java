@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,6 +40,9 @@ public class ChangeFragment extends Fragment implements View.OnClickListener {
     private String changePassword;
     private String confirmPassword;
     private String id;
+    private TextInputLayout layoutCurrent;
+    private TextInputLayout layoutChange;
+    private TextInputLayout layoutChangeCheck;
 
 
     @Override
@@ -52,32 +58,37 @@ public class ChangeFragment extends Fragment implements View.OnClickListener {
         editCurrent=(EditText)getView().findViewById(R.id.edit_current);
         editChange=(EditText)getView().findViewById(R.id.edit_change);
         editChangeCheck=(EditText)getView().findViewById(R.id.edit_change_check);
+        layoutCurrent=(TextInputLayout)getView().findViewById(R.id.layout_current);
+        layoutChange=(TextInputLayout)getView().findViewById(R.id.layout_change);
+        layoutChangeCheck=(TextInputLayout)getView().findViewById(R.id.layout_change_check);
+        layoutCurrent.setErrorEnabled(true);
+        layoutChange.setErrorEnabled(true);
+        layoutChangeCheck.setErrorEnabled(true);
         SharedPreferences sp=getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         id=sp.getString("id",null);
-        editChangeCheck.addTextChangedListener(new TextWatcher() {
+
+        editCurrent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                textUnite.setVisibility(View.INVISIBLE);
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textUnite.setVisibility(View.VISIBLE);
-                textUnite.setText("입력중...");
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(editChange.getText().toString().equals(editChangeCheck.getText().toString())){
-                    textUnite.setText("일치");
-                    textUnite.setTextColor(Color.BLUE);
-                }
-                else{
-                    textUnite.setText("불일치");
-                    textUnite.setTextColor(Color.RED);
-                }
+                if(editCurrent.getText().toString().length()==0)
+                    layoutCurrent.setError("값을 입력해 주세요.");
+                else
+                    layoutCurrent.setError(null);
             }
         });
+
+
+
         editChange.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -86,18 +97,41 @@ public class ChangeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(editChange.getText().toString().equals(editChangeCheck.getText().toString())){
-                    textUnite.setText("일치");
-                    textUnite.setTextColor(Color.BLUE);
+                if(editChange.getText().toString().length()==0)
+                    layoutChange.setError("값을 입력해 주세요.");
+                else
+                    layoutChange.setError(null);
+                if(editChangeCheck.getText().toString().length()>0){
+                    if(editChange.getText().toString().equals(editChangeCheck.getText().toString()))
+                        layoutChangeCheck.setError("일치");
+                    else
+                        layoutChangeCheck.setError("불일치");
                 }
+            }
+        });
+
+        editChangeCheck.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(editChangeCheck.getText().toString().length()==0)
+                    layoutChangeCheck.setError("값을 입력해 주세요.");
                 else{
-                    textUnite.setText("불일치");
-                    textUnite.setTextColor(Color.RED);
+                    if(editChange.getText().toString().equals(editChangeCheck.getText().toString()))
+                        layoutChangeCheck.setError("일치");
+                    else
+                        layoutChangeCheck.setError("불일치");
                 }
             }
         });

@@ -24,6 +24,6 @@
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/navigation"
-        app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior" />
+        app:layout_behavior="css.csslibrary.view.BottomNavigationBehavior" />
 
 </LinearLayout>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -123,7 +124,6 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 break;
 
             case 1:
-                //startActivity(new Intent(getActivity(),ChangeActivity.class));
                 ChangeFragment changeFragment = new ChangeFragment();
                 FragmentTransaction changeTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 changeTransaction.replace(R.id.content,changeFragment);
@@ -131,17 +131,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
                 changeTransaction.addToBackStack(null);
                 changeTransaction.commit();
                 break;
-            /*case 1:
-                //startActivity(new Intent(getActivity(),HelpActivity.class));
-                HelpFragment helpFragment = new HelpFragment();
-                FragmentTransaction helpTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                helpTransaction.replace(R.id.content,helpFragment);
-                helpTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                helpTransaction.addToBackStack(null);
-                helpTransaction.commit();
-                break;*/
             case 2:
-                //startActivity(new Intent(getActivity(),BugReportActivity.class));
                 BugReportFragment bugReportFragment = new BugReportFragment();
                 FragmentTransaction bugreportTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 bugreportTransaction.replace(R.id.content,bugReportFragment);
@@ -164,7 +154,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
             case 5:
                 AlertDialog.Builder dialog=new AlertDialog.Builder(getActivity());
                 dialog.setTitle("Project [CSS Library]");
-                dialog.setMessage("Developer\n9th LEE Han Gyoel\n\nThanks To\n4th KIM Jong Hoon");
+                dialog.setMessage("Developer\n9th LEE Han Gyoel\n\nThanks To\n4th KIM Jong Hoon\n6th KIM Shin Woo");
                 dialog.setPositiveButton("확인",null);
                 dialog.create();
                 dialog.show();
@@ -172,7 +162,7 @@ public class MainListFragment extends Fragment implements AdapterView.OnItemClic
             case 6:
                 AlertDialog.Builder dialog2=new AlertDialog.Builder(getActivity());
                 dialog2.setTitle("버전 정보");
-                dialog2.setMessage("2017.07.21.\n첫 배포");
+                dialog2.setMessage("v 1.0.1\n디자인 수정");
                 dialog2.setPositiveButton("확인",null);
                 dialog2.create();
                 dialog2.show();

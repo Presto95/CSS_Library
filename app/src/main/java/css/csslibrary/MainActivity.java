@@ -111,40 +111,9 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    /*@Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if(event.getKeyCode()== KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_UP){
-            AlertDialog.Builder dialog=new AlertDialog.Builder(this);
-            if(getSupportFragmentManager().getBackStackEntryCount()==0){
-                dialog.setTitle("안내");
-                dialog.setMessage("어플리케이션을 종료합니다.");
-                dialog.setPositiveButton("확인", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                dialog.setNegativeButton("취소",new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which){
-
-                    }
-                });
-                dialog.create();
-                dialog.show();
-            }
-            else{
-                getSupportFragmentManager().popBackStack();
-            }
-        }
-        return true;
-    }*/
-
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(event.getKeyCode()==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_UP){
-
-
             AlertDialog.Builder dialog=new AlertDialog.Builder(this);
             if(getSupportFragmentManager().getBackStackEntryCount()==0){
                 dialog.setTitle("안내");
