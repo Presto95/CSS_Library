@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -106,6 +108,22 @@ public class MainActivity extends AppCompatActivity{
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content,checkInFragment).commit();
 
+        ConnectivityManager manager=(ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile=manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi=manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (!(wifi.isConnected() || mobile.isConnected())) {
+            AlertDialog.Builder alert=new AlertDialog.Builder(MainActivity.this);
+            alert.setTitle("안내");
+            alert.setMessage("인터넷 연결을 확인해 주세요.");
+            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            alert.create();
+            alert.show();
+        }
 
 
 
